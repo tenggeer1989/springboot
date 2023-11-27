@@ -59,12 +59,22 @@ public class BookController {
 
     }
 
+    // @GetMapping("{currentPage}/{pageSize}")
+    // public R getPage(@PathVariable int currentPage, @PathVariable int pageSize){
+    //     IPage<Book> page = bookService.getPage(currentPage, pageSize);
+    //     // もし現在のページ番号が総ページ数を超えている場合は、再度検索操作を実行し、最大ページ番号を現在のページ番号として使用する
+    //     if(currentPage > page.getPages()){
+    //         page = bookService.getPage((int)page.getPages(), pageSize);
+    //     }
+    //     return new R(true,page);
+    // }
+
     @GetMapping("{currentPage}/{pageSize}")
-    public R getPage(@PathVariable int currentPage, @PathVariable int pageSize){
-        IPage<Book> page = bookService.getPage(currentPage, pageSize);
+    public R getPage(@PathVariable int currentPage, @PathVariable int pageSize,Book book){
+        IPage<Book> page = bookService.getPage(currentPage, pageSize,book);
         // もし現在のページ番号が総ページ数を超えている場合は、再度検索操作を実行し、最大ページ番号を現在のページ番号として使用する
         if(currentPage > page.getPages()){
-            page = bookService.getPage((int)page.getPages(), pageSize);
+            page = bookService.getPage((int)page.getPages(), pageSize,book);
         }
         return new R(true,page);
     }
